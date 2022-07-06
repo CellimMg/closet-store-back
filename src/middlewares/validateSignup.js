@@ -7,6 +7,7 @@ export async function validateSignup (req, res, next){
   const userSchema = joi.object({
     name: joi.string().min(1).required().pattern(/^[a-zA-Z]+$/), //regex para validar apenas letras
     lastName: joi.string().min(1).required().pattern(/^[a-zA-Z]+$/),
+    img: joi.string().pattern(/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|webp)/).required(),
     email: joi.string().email().required(),
     password: joi.string().min(6).required()
   });

@@ -1,5 +1,7 @@
 import db from "../databases/database.js"
 import joi from "joi";
+import { ObjectId } from "mongodb";
+import { BSONTypeError } from "bson";
 
 const productSchema = joi.object({
     name: joi.string().required(),
@@ -31,7 +33,23 @@ export async function createProduct(req, res) {
     }
 }
 
+export async function readProduct(req, res) {
+    try {
+        const { id } = req.query;
+        let search;
 
+        if (id) {
+            search = await db.collection("products").find({ _id: new ObjectId(id) }).toArray();
+        } else {
+            search = await db.collection("products").find().toArray()
+        }
 
+        return res.status(200).send({ products: search });
+    } catch (error) {
+
+        return res.status(400).send({ message: "Ops! Ocorreu um erro!" });
+
+    }
+}
 
 

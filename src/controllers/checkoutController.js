@@ -7,7 +7,7 @@ export async function checkout(req, res) {
     const checkoutData = res.locals.checkoutData
     const date = dayjs().locale("pt-br").format("DD/MM");
 
-    const testeIdsListaDeCompras = [{id: 1}, {id: 2}, {id: 3}, {id: 4},]
+    const testeIdsListaDeCompras = ["id1", "id2", "id3", "id4"]
 
     const adress = `CEP: ${checkoutData.CEP}, complemento: ${checkoutData.complement}`
 
@@ -17,7 +17,7 @@ export async function checkout(req, res) {
       adress,
       total: 50,
       date,
-      array: [{idItem: 50, qtde: 10}],
+      itensList: [{idItem: 50, qtde: 10}],
       userId: userData._id.toString()
     });
 

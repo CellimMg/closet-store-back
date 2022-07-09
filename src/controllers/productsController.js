@@ -1,7 +1,6 @@
 import db from "../databases/database.js"
 import joi from "joi";
 import { ObjectId } from "mongodb";
-import { BSONTypeError } from "bson";
 
 const productSchema = joi.object({
     name: joi.string().required(),

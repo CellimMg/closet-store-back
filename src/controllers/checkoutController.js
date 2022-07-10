@@ -1,5 +1,6 @@
 import db from "../databases/database.js";
 import dayjs from "dayjs";
+import { ObjectId } from "mongodb";
 
 export async function checkout(req, res) {
   try {
@@ -7,7 +8,7 @@ export async function checkout(req, res) {
     const checkoutData = res.locals.checkoutData
     const date = dayjs().locale("pt-br").format("DD/MM");
 
-    const testeIdsListaDeCompras = ["id1", "id2", "id3", "id4"]
+    const testeIdsListaDeCompras = []
 
     const adress = `CEP: ${checkoutData.CEP}, complemento: ${checkoutData.complement}`
 
@@ -17,29 +18,20 @@ export async function checkout(req, res) {
       adress,
       total: 50,
       date,
-      itensList: [{idItem: 50, qtde: 10}],
+      itemsList: [{ id: 2, qtde: 1, price: 250 }, { id: 3, qtde: 1, price: 250 }],
       userId: userData._id.toString()
     });
 
-    await db.collection('users').updateOne({
-      _id: userData._id
-    }, { $push: { shoppingList: testeIdsListaDeCompras }});
 
-    const teste = await db.collection("users").findOne({name:"teste"})
+    await db.collection("users").updateOne(
+      { _id: userData._id }, {
+      $unset: { cart: ""}
+    })
 
-    res.status(201).send({ message: "tudo ok", data: teste});
+    res.status(201).send({ message: "tudo ok" });
 
   } catch (error) {
     res.sendStatus(500);
     console.error(error);
   }
 };
-
-/* compra:
-endereço,
-total,
-data,
-array[{idProduto: qtd:}]
-userId = _id do user
-
-*/

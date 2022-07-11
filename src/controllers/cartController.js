@@ -2,7 +2,6 @@ import db from "../databases/database.js";
 import joi from "joi";
 import { ObjectId } from "mongodb";
 
-
 const itemCartSchema = joi.object({
     uid: joi.string().required(),
     productId: joi.string().min(1).required()

@@ -6,6 +6,7 @@ const productSchema = joi.object({
     name: joi.string().required(),
     description: joi.string().required(),
     sale: joi.number().positive(),
+    isNew: joi.boolean().required(),
     price: joi.number().positive().required(),
     image: joi.string().regex(new RegExp('(http)?s?:?(\/\/[^\"\']*\.(?:png|jpg|jpeg|gif|png|svg))')).required()
 });

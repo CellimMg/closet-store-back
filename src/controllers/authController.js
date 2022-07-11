@@ -25,7 +25,7 @@ export async function login(_, res) {
     if (user && bcrypt.compareSync(loginData.password, user.password)) {
       const token = uuid();
 
-      console.log(user.name)
+      const userName = `${user.name} ${user.lastName}`
 
       await db.collection('users').updateOne({
         _id: user._id
@@ -34,10 +34,8 @@ export async function login(_, res) {
       return res.status(201).send(
         {
           token,
-          name: user.name,
-          lastName: user.lastName,
+          name: userName, //concatenar nome + sobrenome
           email: user.email,
-          img: user.img,
           id: user._id
         });
     } else {

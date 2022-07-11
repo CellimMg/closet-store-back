@@ -1,6 +1,5 @@
 import express from "express";
 import cors from "cors";
-import chalk from 'chalk'
 
 import authRouter from "./routes/authRouter.js";
 import productsRouter from "./routes/productsRouter.js"
@@ -18,6 +17,6 @@ app.use(cartRouter);
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
   console.log(
-    chalk.hex('#00ffff').bold(`Server is running on PORT: ${PORT}`)
+    "Service Running!"
   );
 });
